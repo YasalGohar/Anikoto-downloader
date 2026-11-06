@@ -1315,9 +1315,9 @@ class AnikotoDownloaderApp:
         action_row = ctk.CTkFrame(self.spot_content, fg_color="transparent")
         action_row.pack(side="bottom", fill="x", anchor="w")
 
-        # Action Button: Load Series
+        # Action Button: Open on Anikoto
         self.btn_load_series = ctk.CTkButton(
-            action_row, text="Load series", width=96, height=28, corner_radius=7,
+            action_row, text="Open on Anikoto ↗", width=120, height=28, corner_radius=7,
             fg_color="white", text_color="#0B1329", hover_color="#E2E8F0",
             font=("Segoe UI Bold", 11), command=self._on_banner_click
         )
@@ -1411,8 +1411,13 @@ class AnikotoDownloaderApp:
         url = item.get("url", "")
         if url:
             self.url_var.set(url)
-            self._set_status(f"Loaded '{item['title']}'! Click 'Fetch episodes' to start.", ACCENT_BLUE)
-            self._log(f"Spotlight selected: {item['title']} ({url})")
+            self._set_status(f"Loaded '{item['title']}'! Opening on Anikoto website...", ACCENT_BLUE)
+            self._log(f"Opening browser for spotlight: {item['title']} ({url})")
+            try:
+                import webbrowser
+                webbrowser.open(url)
+            except Exception:
+                pass
 
     # ----------------------------------------------------- Tab 1: Downloads ---
     def _build_downloads_tab(self):

@@ -1446,7 +1446,7 @@ class SpotlightCard(QWidget):
         self._timer.setSingleShot(True)
         self._timer.timeout.connect(self.next)
         self._timer.start(6000)
-        self.btn = Btn("Load series", "white", radius=7, height=30, size=9.5, bold=True, minw=104, parent=self)
+        self.btn = Btn("Open on Anikoto ↗", "white", radius=7, height=30, size=9.5, bold=True, minw=120, parent=self)
         self.btn.clicked.connect(self.clicked.emit)
 
     # ---- slide control
@@ -2379,10 +2379,16 @@ class AnikotoDownloaderApp(QMainWindow):
     # ----------------------------------------------------------- spotlight ---
     def _on_banner_click(self):
         meta = self.spot.current()
-        if meta.get("url"):
-            self.url_edit.setText(meta["url"])
-            self._set_status(f"Loaded '{meta['title']}'! Click 'Fetch episodes' to start.")
-            self._log(f"Spotlight selected: {meta['title']} ({meta['url']})")
+        url = meta.get("url")
+        if url:
+            self.url_edit.setText(url)
+            self._set_status(f"Loaded '{meta['title']}'! Opening on Anikoto website...")
+            self._log(f"Opening browser for spotlight: {meta['title']} ({url})")
+            try:
+                QDesktopServices.openUrl(QUrl(url))
+            except Exception:
+                import webbrowser
+                webbrowser.open(url)
 
     # ---------------------------------------------------------------- log ---
     def _open_activity_log(self):
