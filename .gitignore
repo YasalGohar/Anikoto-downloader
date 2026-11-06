@@ -1,0 +1,28 @@
+# Executables and Bundled Binaries (Upload these to GitHub Releases!)
+*.exe
+*.zip
+ffmpeg/
+_internal/
+
+# Build and Packaging directories
+build/
+dist/
+*.spec.bak
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local user configuration & runtime cache
+settings.json
+.anikoto_cache/
+.anikoto_temp/
+
+# Environment / IDE
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+*.swp
